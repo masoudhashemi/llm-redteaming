@@ -1,0 +1,11 @@
+# config filw with secrets
+config.py
+
+# vscode folders
+.vscode
+.idea
+
+# virtualenv
+venv
+
+
