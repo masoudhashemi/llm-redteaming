@@ -8,4 +8,5 @@ config.py
 # virtualenv
 venv
 
-
+# python cache
+__pycache__

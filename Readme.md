@@ -1,3 +1,8 @@
+
+# Red Teaming with Adversarial Prompts and self-criticism
+
+![Red Teaming AI](flow.png)
+
 This diagram outlines the main steps in the flow:
 
 1. The `AdversarialAgent` generates a set of prompts to be fed to the AI model.
