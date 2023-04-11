@@ -16,6 +16,7 @@ ai_responses = []
 feedbacks = []
 
 i = 0
+create_new_prompt = True
 while i < len(adversarial_prompts):
 
     prompt = adversarial_prompts[i]
@@ -28,23 +29,25 @@ while i < len(adversarial_prompts):
     feedback = constitutional_ai.criticize_response(prompt, response)
     feedbacks.append(feedback)
 
-    # 4) Red teaming agent creates new prompts based on response and feedback
-    new_prompt = red_team.generate_new_prompt(response, feedback)
+    if create_new_prompt:
+        # 4) Red teaming agent creates new prompts based on response and feedback
+        new_prompt = red_team.generate_new_prompt(response, feedback)
 
-    # 5) Add the new prompt to the list of prompts to be tested
-    adversarial_prompts.append(new_prompt)
+        # 5) Add the new prompt to the list of prompts to be tested
+        adversarial_prompts.append(new_prompt)
 
     print("Adversarial prompt:", prompt)
     print("AI response:", response)
     print("Feedback:", feedback)
-    print("New prompt:", new_prompt)
+    if create_new_prompt:
+        print("New prompt:", new_prompt)
     print("\n---\n")
 
     i += 1
 
     # Limit the number of iterations to avoid infinite loops
     if i >= 20:
-        break
+        create_new_prompt = False
 
 # make them the same length
 while len(ai_responses) < len(adversarial_prompts):
