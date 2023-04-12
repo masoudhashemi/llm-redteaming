@@ -5,7 +5,7 @@ import pandas as pd
 from agents import AdversarialAgent, AIModel, ConstitutionalAI, RedTeamingAgent
 
 
-def main(max_iterations):
+def main(args):
     # Main execution
     model = AIModel()
     adversarial_agent = AdversarialAgent(model)
@@ -13,7 +13,9 @@ def main(max_iterations):
     red_team = RedTeamingAgent(model)
 
     # 1) Adversarial agent creates prompts
-    adversarial_prompts = adversarial_agent.generate_adversarial_prompts()
+    adversarial_prompts = adversarial_agent.generate_adversarial_prompts(
+        n=args.num_adv_prompts
+    )
     print("Adversarial prompts:", adversarial_prompts)
 
     ai_responses = []
@@ -51,7 +53,7 @@ def main(max_iterations):
         i += 1
 
         # Limit the number of iterations to avoid infinite loops
-        if i >= max_iterations:
+        if i >= args.max_iterations:
             create_new_prompt = False
 
     # make them the same length
@@ -77,10 +79,10 @@ if __name__ == "__main__":
         "--max_iterations", type=int, default=20, help="Maximum number of iterations."
     )
     parser.add_argument(
-        "--create_new_prompt",
-        action="store_true",
-        help="Create new prompts during testing.",
+        "--num_adv_prompts",
+        default=5,
+        help="Numbber of initial adversatial questions.",
     )
     args = parser.parse_args()
 
-    main(args.max_iterations)
+    main(args)

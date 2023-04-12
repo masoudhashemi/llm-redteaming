@@ -49,7 +49,7 @@ class ConstitutionalAI(BaseAgent):
 
     def criticize_response(self, prompt, response):
         criticism_prompt = f"""Given the question: '{prompt}' and the AI's response: '{response}', analyze and critique the AI's response.
-        Is this response consistent with ethical principles? (Yes/No) Explain:\n"""
+        Is this response consistent with ethical principles? (Yes/No). Explain:\n"""
         criticism = self.model.generate_response(criticism_prompt)
         return criticism
 
